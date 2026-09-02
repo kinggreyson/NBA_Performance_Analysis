@@ -1,2 +1,48 @@
 # NBA_Performance_Analysis
 
+A statistical analysis of what stats have a greater impact in winning in the NBA, using 2025-2026 NBA team stats
+
+## Overview
+
+As a lifelong fan of basketball and Computer Science Student, I wanted to explore the impacts of different stats on winning in the NBA. Using current-season team data pulled from official NBA's official stat API, this project builds several linear regression models to see how well different categories of stats (offensive, defensive, and overall with/without plus or minus) predict a team's win percentage
+
+This project focuses on Explanatory Analysis, identifying which stats correlate strongest with winning in a single season rather than predicting future win percentages. More information on this can be found in the project limitations.
+
+## Key Findings
+
+- **Point Differential** was obviously the most accurate stat in predicting wins/losses as it directly is based off of final scores. It was found via 5-fold cross validation that R² = 0.92 indicating a very accurate prediction.
+- **Offensive stats predict wins meaningfully better than defensive stats.** A model using only offensive stats (FG%, FGM, Offensive Rebounds, Assists, and Turnovers) achieved R² = 0.56, compared to R² = 0.17 for a defensive-only model (Steals, Blocks, Defensive Rebounds, and Fouls).
+- **Some teams are consistently over-valued or under-valued across models .** Notably Oklahoma City, holder of the league-best record 64-18, was undervalued both offensively and defensively across both models, suggesting other factors like defensive execution (that flies under the radar when it comes to stats), depth, late-game performance, etc. that aren't fully captured in standard box-score stats. Teams like the Sacramento Kings were over-valued likely due to individual stat performances that didn't contribute to team wins at the predicted rate.
+
+## Data Source
+Team-level stats for the 2025-2026 NBA season were pulled from the nba_api Python Package, which contains official NBA stat endpoints
+
+## Tech Stack
+- **Python** -- pandas, numpy
+- **Visualization** -- matplotlib
+- **Modeling** -- scikit-learn (LinearRegression, cross_val_score)
+- **Data source** -- nba_api
+
+## Visualizations
+**Team Win Percentage (2025-26 Season)**
+![Win Percentage by Team](images/W_PCT_By_Team.png)
+
+**Shooting Efficency VS Win Percentage**
+![Shooting Efficency VS Win Percentage](images/FG_PCT_VS_W_PCT.png)
+While the linear trend line shows some form of correlation it is a messy relationship between field goal percentage and win percentage on its own.
+
+**Model Predictions VS Actual Win Percentage**
+
+Comparing actual win-percentage to model-predicted win-percentage based on different sets of stats.
+- **Overall with Plus and Minus**
+![Model Correlation with plus and minus](images/Predict_Win_PCT_With_PlusMinus.png)
+
+- **Overall without Plus and Minus**
+![Model Correlation without plus and minus](images/Predict_Win_PCT_Without_PlusMinus.png)
+
+- **Offensive**
+![Offensive Model Correlation](images/Predict_Win_PCT_Offensive.png)
+
+- **Defensive**
+![Defensive Model Correlation](images/Predict_Win_PCT_Offensive.png)
+
